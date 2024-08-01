@@ -24,6 +24,8 @@ spec:
               value: "postgres"
             - name: SPRING_DATASOURCE_PASSWORD
               value: "password"
+            - name: DISTRIBUTOR_SERVICE
+              value: http://gateway-service-app:8181/api/v1/distributors
             - name: SPRING_PROFILES_ACTIVE
               value: docker
           image: alismak/inwi-reception-service:1.0.0
