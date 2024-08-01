@@ -24,7 +24,7 @@ spec:
           name: notification-service-app
           imagePullPolicy: Always
           ports:
-            - containerPort: 9002
+            - containerPort: 9003
           resources: {}
       restartPolicy: Always
 status: {}
