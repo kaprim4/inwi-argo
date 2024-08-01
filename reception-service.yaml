@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: reception-service-app
+  name: reception-service-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: reception-service-app
+  strategy: {}
+  template:
+    metadata:
+
+      labels:
+        app: reception-service-app
+    spec:
+      containers:
+        - env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/postgres-inwi
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "postgres"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "password"
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+          image: alismak/inwi-reception-service:1.0.0
+          name: reception-service-app
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9004
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: reception-service-svc
+  name: reception-service-svc
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 9004
+  selector:
+    app: reception-service-app
+status:
+  loadBalancer: {}
